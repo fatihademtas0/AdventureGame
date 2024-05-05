@@ -12,7 +12,7 @@ public class Game {
 
         Player player = new Player(name);
 
-        player.showChar();
+        player.printChar();
 
         System.out.print("Select a character : ");
         int charSel = input.nextInt();
@@ -21,6 +21,9 @@ public class Game {
 
         Location location = null;
         while (true) {
+
+            player.printInfo();
+
             System.out.println();
             System.out.println("---------------------");
             System.out.println("--LOCATİONS--");
