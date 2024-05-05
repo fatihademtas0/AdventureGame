@@ -20,13 +20,13 @@ public class Player {
     }
 
     public void printChar() {
-        Characters[] chars = {new Samurai(),new Archer(),new Knight()};
+        Characters[] chars = {new Samurai(), new Archer(), new Knight()};
 
-        for (Characters c : chars){
+        for (Characters c : chars) {
 
             System.out.println("-----------------------------------------------------------------");
-            System.out.println(c.getId()+" -\t "+c.getCharName()+" \t| Damage : "+c.getDamage()+
-                    "\t| Health : "+c.getHealth()+"\t| Money : "+c.getMoney()+" \t|");
+            System.out.println(c.getId() + " -\t " + c.getCharName() + " \t| Damage : " + c.getDamage() +
+                    "\t| Health : " + c.getHealth() + "\t| Money : " + c.getMoney() + " \t|");
             System.out.println("-----------------------------------------------------------------");
         }
         /*
@@ -47,13 +47,13 @@ public class Player {
          */
     }
 
-    public void printInfo(){
+    public void printInfo() {
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println("Your Health : "+this.getHealth());
-        System.out.println("Your Damage : "+this.getDamage());
-        System.out.println("Your Money  : "+this.getMoney());
-        System.out.println("Your Weapon : "+this.inventory.getWeapons().getName());
-        System.out.println("Your armour : "+this.inventory.getArmour().getName());
+        System.out.println("Your Health : " + this.getHealth());
+        System.out.println("Your Damage : " + this.getDamage());
+        System.out.println("Your Money  : " + this.getMoney());
+        System.out.println("Your Weapon : " + this.inventory.getWeapons().getName());
+        System.out.println("Your armour : " + this.inventory.getArmour().getName());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
@@ -68,15 +68,21 @@ public class Player {
         switch (charSel) {
             case 1:
                 initPlayer(new Samurai());
+                System.out.println("*******************************");
                 System.out.println("You are a Samurai now !");
+                System.out.println("*******************************");
                 break;
             case 2:
                 initPlayer(new Archer());
+                System.out.println("*******************************");
                 System.out.println("You are an Archer now !");
+                System.out.println("*******************************");
                 break;
             case 3:
                 initPlayer(new Knight());
+                System.out.println("*******************************");
                 System.out.println("You are a Knight now !");
+                System.out.println("*******************************");
                 break;
             default:
                 System.out.println("Please enter a valid number !");
@@ -90,7 +96,7 @@ public class Player {
     }
 
     public int getDamage() {
-        return damage;
+        return damage + this.inventory.getWeapons().getDamage();
     }
 
     public void setDamage(int damage) {

@@ -14,17 +14,18 @@ public abstract class Characters {
         this.health = health;
         this.money = money;
     }
-/*
-    public static Characters[] characters() {
-        Characters[] charactersList = new Characters[3];
-        charactersList[0] = new Characters(1,  "Samurai", 5,21,15);
-        charactersList[1] = new Characters(2, "Archer", 7, 18,20);
-        charactersList[2] = new Characters(3, "Knight", 8, 24,5);
 
-        return charactersList;
-    }
+    /*
+        public static Characters[] characters() {
+            Characters[] charactersList = new Characters[3];
+            charactersList[0] = new Characters(1,  "Samurai", 5,21,15);
+            charactersList[1] = new Characters(2, "Archer", 7, 18,20);
+            charactersList[2] = new Characters(3, "Knight", 8, 24,5);
 
- */
+            return charactersList;
+        }
+
+     */
     public int getId() {
         return id;
     }

@@ -54,6 +54,7 @@ public class Shop extends NormalLoc {
 
     public void buyWeapon() {
         int playerMoney = this.getPlayer().getMoney();
+        int playerDamage = this.getPlayer().getDamage();
 
         System.out.print("Select a weapon to purchase : ");
         int selectedID = input.nextInt();
@@ -61,6 +62,7 @@ public class Shop extends NormalLoc {
         while (selectedID < 1 || selectedID > Weapons.weapons().length) {
             System.out.println("*******************************");
             System.out.println("Enter a valid number !");
+            System.out.println("*******************************");
             System.out.print("Select a weapon to purchase : ");
             selectedID = input.nextInt();
         }
@@ -73,13 +75,20 @@ public class Shop extends NormalLoc {
                 System.out.println("Purchase successful !");
                 System.out.println("*******************************");
 
-                System.out.println("Your old weapon is : "+this.getPlayer().getInventory().getWeapons().getName());
-                this.getPlayer().getInventory().setWeapons(selectedWeapon);
-                System.out.println("Your new weapon is : "+this.getPlayer().getInventory().getWeapons().getName());
+                System.out.println("Your old weapon is : " + this.getPlayer().getInventory().getWeapons().getName());
+
+                this.getPlayer().getInventory().setWeapons(selectedWeapon); // sets player's new weapon
+
+                System.out.println("Your new weapon is : " + this.getPlayer().getInventory().getWeapons().getName());
 
                 System.out.println("*******************************");
-                this.getPlayer().setMoney(playerMoney - selectedWeapon.getPrice());
+
+                this.getPlayer().setMoney(playerMoney - selectedWeapon.getPrice()); // sets player's money
+
                 System.out.println("Your current money = " + this.getPlayer().getMoney());
+
+                //this.getPlayer().setDamage(playerDamage+selectedWeapon.getDamage()); // sets player's new damage
+
             } else {
                 System.out.println("*******************************");
                 System.out.println("You do not have enough money to buy this weapon !");
@@ -120,12 +129,16 @@ public class Shop extends NormalLoc {
                 System.out.println("Purchase successful !");
                 System.out.println("*******************************");
 
-                System.out.println("Your old armour is : "+this.getPlayer().getInventory().getArmour().getName());
-                this.getPlayer().getInventory().setArmour(selectedArmour);
-                System.out.println("Your new armour is : "+this.getPlayer().getInventory().getArmour().getName());
+                System.out.println("Your old armour is : " + this.getPlayer().getInventory().getArmour().getName());
+
+                this.getPlayer().getInventory().setArmour(selectedArmour); // set player's armour
+
+                System.out.println("Your new armour is : " + this.getPlayer().getInventory().getArmour().getName());
 
                 System.out.println("*******************************");
-                this.getPlayer().setMoney(playerMoney - selectedArmour.getPrice());
+
+                this.getPlayer().setMoney(playerMoney - selectedArmour.getPrice()); // set player's money
+
                 System.out.println("Your current money = " + this.getPlayer().getMoney());
             } else {
                 System.out.println("*******************************");
