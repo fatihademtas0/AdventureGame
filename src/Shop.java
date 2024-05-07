@@ -54,7 +54,7 @@ public class Shop extends NormalLoc {
 
     public void buyWeapon() {
         int playerMoney = this.getPlayer().getMoney();
-        int playerDamage = this.getPlayer().getDamage();
+        //int playerDamage = this.getPlayer().getDamage();
 
         System.out.print("Select a weapon to purchase : ");
         int selectedID = input.nextInt();
