@@ -49,11 +49,12 @@ public class Player {
 
     public void printInfo() {
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        System.out.println("Your Weapon : " + this.getInventory().getWeapons().getName());
+        System.out.println("Your Armour : " + this.getInventory().getArmour().getName());
         System.out.println("Your Health : " + this.getHealth());
         System.out.println("Your Damage : " + this.getDamage());
+        System.out.println("Your Block  : " + this.getInventory().getArmour().getBlock());
         System.out.println("Your Money  : " + this.getMoney());
-        System.out.println("Your Weapon : " + this.inventory.getWeapons().getName());
-        System.out.println("Your armour : " + this.inventory.getArmour().getName());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 

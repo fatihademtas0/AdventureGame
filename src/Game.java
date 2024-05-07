@@ -29,18 +29,37 @@ public class Game {
             System.out.println("--LOCATİONS--");
             System.out.println("1 - \t Safe House");
             System.out.println("2 - \t Shop");
+            System.out.println("3 - \t Cave");
+            System.out.println("4 - \t Forest");
+            System.out.println("5 - \t River");
+            System.out.println("0 - \t Exit Game");
             System.out.println("---------------------");
 
             System.out.print("Select a location to go : ");
             int selectLoc = input.nextInt();
 
             switch (selectLoc) {
+                case 0:
+                    location = null;
+                    break;
                 case 1:
                     location = new SafeHouse(player);
                     System.out.println();
                     break;
                 case 2:
                     location = new Shop(player);
+                    System.out.println();
+                    break;
+                case 3:
+                    location = new Cave(player);
+                    System.out.println();
+                    break;
+                case 4:
+                    location = new Forest(player);
+                    System.out.println();
+                    break;
+                case 5:
+                    location = new River(player);
                     System.out.println();
                     break;
                 default:
@@ -50,6 +69,11 @@ public class Game {
                     System.out.println("----------------------------");
                     location = new SafeHouse(player);
                     System.out.println();
+            }
+
+            if (location == null) {
+                System.out.println("Farewell Adventurer !");
+                break;
             }
 
             if (!location.onLocation()) {
