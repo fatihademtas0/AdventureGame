@@ -111,7 +111,7 @@ public class Shop extends NormalLoc {
         System.out.println("----------------------------------------------");
         for (Armour a : Armour.armour()) {
             System.out.println("| " + a.getId() + " - " + a.getName() +
-                    " \t| Damage : " + a.getBlock() + " \t| Price : " + a.getPrice() + " |");
+                    " \t| Block : " + a.getBlock() + " \t| Price : " + a.getPrice() + " |");
         }
         System.out.println("| 4 - Exit\t\t|");
         System.out.println("----------------------------------------------");
