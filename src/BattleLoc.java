@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 
 public abstract class BattleLoc extends Location {
     private Creature creature;
