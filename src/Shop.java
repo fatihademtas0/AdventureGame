@@ -6,8 +6,9 @@ public class Shop extends NormalLoc {
     @Override
     public boolean onLocation() {
         boolean showMenu = true;
+        System.out.println("Welcome to the shop !");
         while (showMenu) {
-            System.out.println("Welcome to the shop !");
+            waitSec();
             System.out.println();
             System.out.println("----------------");
             System.out.println("1 - Weapons ");
@@ -29,15 +30,21 @@ public class Shop extends NormalLoc {
 
             switch (choice) {
                 case 1:
+                    System.out.print("Loading weapons");
+                    waiting();
                     showWeapons();
                     buyWeapon();
                     break;
                 case 2:
+                    System.out.println("Loading armours");
+                    waiting();
                     showArmours();
                     buyArmour();
                     break;
                 case 3:
                     System.out.println("Come again !");
+                    System.out.print("Leaving the shop");
+                    waiting();
                     showMenu = false;
                     break;
             }
@@ -60,10 +67,10 @@ public class Shop extends NormalLoc {
 
     public void buyWeapon() {
         int playerMoney = this.getPlayer().getMoney();
-        //int playerDamage = this.getPlayer().getDamage();
 
         System.out.print("Select a weapon to purchase : ");
         int selectedID = input.nextInt();
+        waitSec();
 
         while (selectedID < 1 || selectedID > Weapons.weapons().length + 1) {
             System.out.println("*******************************");
@@ -71,6 +78,7 @@ public class Shop extends NormalLoc {
             System.out.println("*******************************");
             System.out.print("Select a weapon to purchase : ");
             selectedID = input.nextInt();
+            waitSec();
         }
 
         if (selectedID != 4) {
@@ -78,9 +86,9 @@ public class Shop extends NormalLoc {
 
             if (selectedWeapon != null) {
                 if (selectedWeapon.getPrice() <= this.getPlayer().getMoney()) {
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
                     System.out.println("Purchase successful !");
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
 
                     System.out.println("Your old weapon is : " + this.getPlayer().getInventory().getWeapons().getName());
 
@@ -88,13 +96,11 @@ public class Shop extends NormalLoc {
 
                     System.out.println("Your new weapon is : " + this.getPlayer().getInventory().getWeapons().getName());
 
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
 
                     this.getPlayer().setMoney(playerMoney - selectedWeapon.getPrice()); // sets player's money
 
                     System.out.println("Your current money = " + this.getPlayer().getMoney());
-
-                    //this.getPlayer().setDamage(playerDamage+selectedWeapon.getDamage()); // sets player's new damage
 
                 } else {
                     System.out.println("*******************************");
@@ -122,6 +128,7 @@ public class Shop extends NormalLoc {
 
         System.out.print("Select an armour to purchase : ");
         int selectedID = input.nextInt();
+        waitSec();
 
         while (selectedID < 1 || selectedID > Armour.armour().length + 1) {
             System.out.println("*******************************");
@@ -129,6 +136,7 @@ public class Shop extends NormalLoc {
             System.out.println("*******************************");
             System.out.print("Select an armour to purchase : ");
             selectedID = input.nextInt();
+            waitSec();
         }
 
         if (selectedID != 4) {
@@ -136,9 +144,9 @@ public class Shop extends NormalLoc {
 
             if (selectedArmour != null) {
                 if (selectedArmour.getPrice() <= this.getPlayer().getMoney()) {
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
                     System.out.println("Purchase successful !");
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
 
                     System.out.println("Your old armour is : " + this.getPlayer().getInventory().getArmour().getName());
 
@@ -146,7 +154,7 @@ public class Shop extends NormalLoc {
 
                     System.out.println("Your new armour is : " + this.getPlayer().getInventory().getArmour().getName());
 
-                    System.out.println("*******************************");
+                    System.out.println("--------------------------------");
 
                     this.getPlayer().setMoney(playerMoney - selectedArmour.getPrice()); // set player's money
 

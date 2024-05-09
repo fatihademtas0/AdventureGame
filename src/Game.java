@@ -12,6 +12,8 @@ public class Game {
 
         Player player = new Player(name);
 
+        System.out.print("Loading the characters");
+        waiting();
         player.printChar();
 
         System.out.print("Select a character : ");
@@ -24,10 +26,9 @@ public class Game {
 
         Location location = null;
         while (true) {
-
             player.printInfo();
-
             System.out.println();
+            waitSec();
             System.out.println("---------------------");
             System.out.println("--LOCATİONS--");
             System.out.println("1 - \t Safe House");

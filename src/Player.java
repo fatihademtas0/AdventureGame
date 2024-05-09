@@ -29,13 +29,14 @@ public class Player {
     }
 
     public void printInfo() {
+        Game.waitSec();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println(this.getName()+"'s Weapon : " + this.getInventory().getWeapons().getName());
-        System.out.println(this.getName()+"'s Armour : " + this.getInventory().getArmour().getName());
-        System.out.println(this.getName()+"'s Health : " + this.getHealth());
-        System.out.println(this.getName()+"'s Damage : " + this.getDamage());
-        System.out.println(this.getName()+"'s Block  : " + this.getInventory().getArmour().getBlock());
-        System.out.println(this.getName()+"'s Money  : " + this.getMoney());
+        System.out.println(this.getName() + "'s Weapon : " + this.getInventory().getWeapons().getName());
+        System.out.println(this.getName() + "'s Armour : " + this.getInventory().getArmour().getName());
+        System.out.println(this.getName() + "'s Health : " + this.getHealth());
+        System.out.println(this.getName() + "'s Damage : " + this.getDamage());
+        System.out.println(this.getName() + "'s Block  : " + this.getInventory().getArmour().getBlock());
+        System.out.println(this.getName() + "'s Money  : " + this.getMoney());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
@@ -50,20 +51,23 @@ public class Player {
         switch (charSel) {
             case 1:
                 initPlayer(new Samurai());
-                System.out.println("--------------------------");
+                System.out.println("-------------------------");
                 System.out.println("You are a Samurai now !");
+                System.out.println("-------------------------");
                 System.out.println();
                 break;
             case 2:
                 initPlayer(new Archer());
-                System.out.println("--------------------------");
+                System.out.println("-------------------------");
                 System.out.println("You are an Archer now !");
+                System.out.println("-------------------------");
                 System.out.println();
                 break;
             case 3:
                 initPlayer(new Knight());
-                System.out.println("--------------------------");
+                System.out.println("-------------------------");
                 System.out.println("You are a Knight now !");
+                System.out.println("-------------------------");
                 System.out.println();
                 break;
             default:

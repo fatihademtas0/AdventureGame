@@ -16,14 +16,15 @@ public abstract class BattleLoc extends Location {
         System.out.println("------------------------");
         System.out.println("You entered the " + this.getName() + " ! ");
         int randomNumber = this.randomCreatureNumber();
-        System.out.println(this.getCreature().getName() + " rule this filthy place !");
+        System.out.println(this.getCreature().getName() + "s rule this filthy place !");
         System.out.print("Searching the area for any danger ");
         waiting();
         if (randomNumber == 1)
-            System.out.println("Looks like there is just 1" + this.getCreature().getName() + " here.");
+            System.out.println("Looks like there is just 1 " + this.getCreature().getName() + " here.");
         else
-            System.out.println("Looks like there are " + randomNumber + " " + this.getCreature().getName() + "s here.");
-        System.out.println("The "+this.getCreature().getName()+"is approaching !");
+            System.out.println("Looks like there are " + randomNumber + "" + this.getCreature().getName() + "s here.");
+        waitSec();
+        System.out.println("The " + this.getCreature().getName() + " is approaching !");
         System.out.println("GET READY !");
         waitSec();
         System.out.println("------------------------");
@@ -51,47 +52,21 @@ public abstract class BattleLoc extends Location {
 
 
         } else if (select == 2) {
-            System.out.println("***** Your escape chance is %50 ! *****");
-            System.out.println("Your chances of escaping will be decided by a coin toss !");
-            System.out.println("HEADS ---> RUN");
-            System.out.println("TAİLS ---> FİGHT");
-            System.out.print("Press enter to flip the coin : ");
-            input.nextLine(); // to clean input
-            input.nextLine();
-            System.out.print("COİN İS FALLİNG SLOWLY");
-            waiting();
-
-            int number = (int) (Math.random() * (2)) + 1;
-
-            if (number == 1) {
+            coinToss();
+            System.out.println();
+            if (combat(randomNumber)) {
                 System.out.println();
-                System.out.println("--------------");
-                System.out.println("İT'S HEADS !");
-                System.out.println("--------------");
+                System.out.println("---------------------------------");
+                System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+                System.out.println(this.getName() + " is safe !");
+                System.out.println("For now...");
+                System.out.println("---------------------------------");
                 System.out.println();
-                System.out.println("You have succesfully escaped from the " + this.getName() + " !");
-                System.out.println();
-            } else if (number == 2) {
-                System.out.println();
-                System.out.println("--------------");
-                System.out.println("İT'S TAİLS !");
-                System.out.println("--------------");
-                System.out.println();
-                System.out.println("You have to stay and fight...");
-                System.out.println();
-                if (combat(randomNumber)) {
-                    System.out.println();
-                    System.out.println("---------------------------------");
-                    System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
-                    System.out.println(this.getName() + " is safe !");
-                    System.out.println("For now...");
-                    System.out.println("---------------------------------");
-                    System.out.println();
-                    return true;
-                }
+                return true;
             }
         }
         if (this.getPlayer().getHealth() <= 0) {
+            waitSec();
             System.out.println("*****************");
             System.out.println("YOU ARE DEAD !");
             System.out.println("*****************");
@@ -119,7 +94,7 @@ public abstract class BattleLoc extends Location {
                 System.out.println("ROUND " + round);
                 System.out.println();
                 waitSec();
-                System.out.print("FİGHT ---> <1> --- <0> <--- RUN ");
+                System.out.print("FİGHT ---> <1> --- <0> <--- RUN (-5 HEALTH) ");
                 int slct = input.nextInt();
                 waitSec();
 
@@ -147,6 +122,7 @@ public abstract class BattleLoc extends Location {
                         afterHit(i);
                     }
                 } else {
+                    this.getPlayer().setHealth(this.getPlayer().getHealth() - 5);
                     return false;
                 }
                 round++;
@@ -165,6 +141,43 @@ public abstract class BattleLoc extends Location {
                 return false;
         }
         return true;
+    }
+
+    public void coinToss() {
+        System.out.println("***** Your escape chance is %50 ! *****");
+        System.out.println("Your chances of escaping will be decided by a coin toss !");
+        System.out.println("HEADS ---> RUN");
+        System.out.println("TAİLS ---> FİGHT");
+        waitSec();
+        System.out.print("Press enter to flip the coin : ");
+        input.nextLine(); // to clean input
+        input.nextLine();
+        System.out.print("COİN İS FALLİNG SLOWLY");
+        waiting();
+
+        int number = (int) (Math.random() * (2)) + 1;
+
+        if (number == 1) {
+            System.out.println();
+            System.out.println("--------------");
+            System.out.println("İT'S HEADS !");
+            System.out.println("--------------");
+            System.out.println();
+            waitSec();
+            System.out.println("You have succesfully escaped from the " + this.getName() + " !");
+            System.out.println();
+            waitSec();
+        } else if (number == 2) {
+            System.out.println();
+            System.out.println("--------------");
+            System.out.println("İT'S TAİLS !");
+            System.out.println("--------------");
+            System.out.println();
+            waitSec();
+            System.out.print("You have to stay and fight");
+            waiting();
+            System.out.println();
+        }
     }
 
     public void afterHit(int i) {
