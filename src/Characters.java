@@ -1,5 +1,3 @@
-package Characters;
-
 public abstract class Characters {
     private int id;
     private String charName;
@@ -65,4 +63,5 @@ public abstract class Characters {
     public void setMoney(int money) {
         this.money = money;
     }
+
 }

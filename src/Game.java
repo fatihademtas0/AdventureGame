@@ -7,7 +7,7 @@ public class Game {
     public void start() {
         System.out.println("Welcome Adventurer !");
 
-        System.out.print("Name : ");
+        System.out.print("Your Name : ");
         String name = input.nextLine();
 
         Player player = new Player(name);
@@ -16,6 +16,9 @@ public class Game {
 
         System.out.print("Select a character : ");
         int charSel = input.nextInt();
+
+        System.out.print("Creating");
+        waiting();
 
         player.selectChar(charSel);
 
@@ -43,22 +46,32 @@ public class Game {
                     location = null;
                     break;
                 case 1:
+                    System.out.print("Area loading");
+                    waiting();
                     location = new SafeHouse(player);
                     System.out.println();
                     break;
                 case 2:
+                    System.out.print("Area loading");
+                    waiting();
                     location = new Shop(player);
                     System.out.println();
                     break;
                 case 3:
+                    System.out.print("Area loading");
+                    waiting();
                     location = new Cave(player);
                     System.out.println();
                     break;
                 case 4:
+                    System.out.print("Area loading");
+                    waiting();
                     location = new Forest(player);
                     System.out.println();
                     break;
                 case 5:
+                    System.out.print("Loading");
+                    waiting();
                     location = new River(player);
                     System.out.println();
                     break;
@@ -82,5 +95,32 @@ public class Game {
                 break;
             }
         }
+    }
+
+    public static void waiting() {
+        int count = 0;
+        while (count < 3) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.print(".");
+            count++;
+        }
+        System.out.println();
+    }
+
+    public static void waitSec() {
+        int count = 0;
+        while (count < 2) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            count++;
+        }
+        System.out.println();
     }
 }
