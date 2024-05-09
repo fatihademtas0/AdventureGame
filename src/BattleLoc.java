@@ -31,12 +31,12 @@ public abstract class BattleLoc extends Location {
             System.out.print("Select an action : ");
             select = input.nextInt();
         }
-        if (select == 1) {
-            if (combat(randomNumber)) {
-                System.out.println(this.getName() + " has been cleared !");
-                System.out.println(this.getName() + " is safe now !");
-                return true;
-            }
+        if (select == 1 && combat(randomNumber)) {
+
+            System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+            System.out.println(this.getName() + " is safe now !");
+            return true;
+
 
         } else if (select == 2) {
             System.out.println("***** Your escape chance is %50 ! *****");
@@ -59,7 +59,7 @@ public abstract class BattleLoc extends Location {
                 System.out.println("İT'S TAİLS !");
                 System.out.println("*************");
                 System.out.println("You have to stay and fight");
-                // FİGHT
+                // combat(randomNumber);
             }
         }
         if (this.getPlayer().getHealth() <= 0) {
@@ -72,15 +72,14 @@ public abstract class BattleLoc extends Location {
     public boolean combat(int number) {
         int round = 1;
         for (int i = 1; i <= number; i++) {
-            printPlayerStats();
-            printEnemyStats(i);
-
             // if there are more than 1 creature when we killed one
             // loop moves to the second (or third) stage and the creatures health regenerates
             this.getCreature().setHealth(this.getCreature().getDefaulHealth());
 
+            printPlayerStats();
+            printEnemyStats(i);
+            System.out.println("START FİGHT");
             while (this.getPlayer().getHealth() > 0 && this.getCreature().getHealth() > 0) {// while the enemy or player is still alive
-                System.out.println("START FİGHT");
                 // we declare a variable for a shortcut to player's block
                 int playersBlock = this.getPlayer().getInventory().getArmour().getBlock();
 
@@ -105,11 +104,21 @@ public abstract class BattleLoc extends Location {
                         this.getPlayer().setHealth(this.getPlayer().getHealth() - blockedDamage);
                         afterHit(i);
                     }
+                } else {
+                    return false;
                 }
                 round++;
             }
+            if (this.getPlayer().getHealth() > this.getCreature().getHealth()) {
+                System.out.println("You defeated the " + this.getCreature().getName() + " !");
+                System.out.println("Remaining " + this.getCreature().getName() + " : " + (number - i));
+                System.out.print("Current balance : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
+                System.out.println(" = " + this.getPlayer().getMoney());
+            } else
+                return false;
         }
-        return false;
+        return true;
     }
 
     public void afterHit(int i) {
@@ -123,29 +132,42 @@ public abstract class BattleLoc extends Location {
         if (this.getCreature().getHealth() <= 0) {
             this.getCreature().setHealth(0);
         }
-        System.out.println(i+". "+this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
+        System.out.println(i + ". " + this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
 
         System.out.println("*****************");
     }
 
     public void printPlayerStats() {
         System.out.println("*****************");
-        System.out.println("Player's Stats");
-        System.out.println("Your Health : " + this.getPlayer().getHealth());
-        System.out.println("Your Block  : " + this.getPlayer().getInventory().getArmour().getBlock());
-        System.out.println("Your Damage : " + this.getPlayer().getDamage());
-        System.out.println("Your Money  : " + this.getPlayer().getMoney());
+        System.out.println(this.getPlayer().getName() + "'s Stats");
+        System.out.println(this.getPlayer().getName() + "'s Health : " + this.getPlayer().getHealth());
+        System.out.println(this.getPlayer().getName() + "'s Block  : " + this.getPlayer().getInventory().getArmour().getBlock());
+        System.out.println(this.getPlayer().getName() + "'s Damage : " + this.getPlayer().getDamage());
+        System.out.println(this.getPlayer().getName() + "'s Money  : " + this.getPlayer().getMoney());
         System.out.println("*****************");
     }
 
     public void printEnemyStats(int i) {
         System.out.println("*****************");
-        System.out.println(i + ". Enemy's Stats");
-        System.out.println("Enemy's Health : " + this.getCreature().getHealth());
-        System.out.println("Enemy's Damage : " + this.getCreature().getDamage());
-        System.out.println("Enemy's Loot  : " + this.getCreature().getLoot());
+        System.out.println(i + ". " + this.getCreature().getName() + "'s Stats");
+        System.out.println(this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
+        System.out.println(this.getCreature().getName() + "'s Damage : " + this.getCreature().getDamage());
+        System.out.println(this.getCreature().getName() + "'s Loot  : " + this.getCreature().getLoot());
         System.out.println("*****************");
     }
+
+    public boolean printGainedLoot(int number) {
+        if (this.getPlayer().getHealth() > this.getCreature().getHealth()) {
+            System.out.println("You defeated the " + this.getCreature().getName() + " !");
+            System.out.println("Remaining " + this.getCreature().getName() + " : " + (number - 1));
+            System.out.print("Current balance : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
+            this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
+            System.out.println(" = " + this.getPlayer().getMoney());
+            return true;
+        } else
+            return false;
+    }
+
 
     public int randomCreatureNumber() {
         int number = (int) (Math.random() * (this.getMaxCreature())) + 1;
