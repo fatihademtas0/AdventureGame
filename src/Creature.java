@@ -3,12 +3,16 @@ public class Creature {
     private String name;
     private int damage;
     private int health;
+    private int loot;
+    private int defaulHealth;
 
-    public Creature(int id, String name, int damage, int health) {
+    public Creature(int id, String name, int damage, int health, int loot) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.health = health;
+        this.defaulHealth = health;
+        this.loot = loot;
     }
 
     public int getId() {
@@ -42,4 +46,22 @@ public class Creature {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getLoot() {
+        return loot;
+    }
+
+    public void setLoot(int loot) {
+        this.loot = loot;
+    }
+
+    public int getDefaulHealth() {
+        return defaulHealth;
+    }
+
+    public void setDefaulHealth(int defaulHealth) {
+        this.defaulHealth = defaulHealth;
+    }
 }
+
+
