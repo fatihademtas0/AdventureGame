@@ -16,13 +16,15 @@ public abstract class BattleLoc extends Location {
         System.out.println("------------------------");
         System.out.println("You entered the " + this.getName() + " ! ");
         int randomNumber = this.randomCreatureNumber();
-        System.out.println(this.getCreature().getName() + "s rule this filthy place !");
+        System.out.println("You have to get the " + this.getAward() + " !");
+        waitSec();
+        System.out.println("CAUTİON ! " + this.getCreature().getName() + "s rule this filthy place !");
         System.out.print("Searching the area for any danger ");
         waiting();
         if (randomNumber == 1)
             System.out.println("Looks like there is just 1 " + this.getCreature().getName() + " here.");
         else
-            System.out.println("Looks like there are " + randomNumber + "" + this.getCreature().getName() + "s here.");
+            System.out.println("Looks like there are " + randomNumber + " " + this.getCreature().getName() + "s here.");
         waitSec();
         System.out.println("The " + this.getCreature().getName() + " is approaching !");
         System.out.println("GET READY !");
@@ -43,11 +45,14 @@ public abstract class BattleLoc extends Location {
             select = input.nextInt();
         }
         if (select == 1 && combat(randomNumber)) {
-
+            System.out.println("---------------------------------");
             System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+            System.out.println("You won the " + this.getAward() + " of the " + this.getName() + " ! ");
+            reward();
             System.out.println(this.getName() + " is safe !");
             System.out.print("For now");
             waiting();
+
             return true;
 
 
@@ -58,10 +63,11 @@ public abstract class BattleLoc extends Location {
                 System.out.println();
                 System.out.println("---------------------------------");
                 System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+                System.out.println("You won the **" + this.getAward() + "** of the " + this.getName() + " ! ");
+                reward();
                 System.out.println(this.getName() + " is safe !");
-                System.out.println("For now...");
-                System.out.println("---------------------------------");
-                System.out.println();
+                System.out.print("For now");
+                waiting();
                 return true;
             }
         }
@@ -218,6 +224,17 @@ public abstract class BattleLoc extends Location {
         System.out.println("---------------------");
         waitSec();
         System.out.println();
+    }
+
+    public void reward() {
+        switch (this.getName()) {
+            case "Cave":
+                this.getPlayer().getInventory().setFood(this.getAward());
+            case "Forest":
+                this.getPlayer().getInventory().setFood(this.getAward());
+            case "River":
+                this.getPlayer().getInventory().setFood(this.getAward());
+        }
     }
 
     public int randomCreatureNumber() {

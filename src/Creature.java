@@ -4,6 +4,7 @@ public class Creature {
     private int damage;
     private int health;
     private int loot;
+    private String reward;
     private int defaulHealth;
 
     public Creature(int id, String name, int damage, int health, int loot) {
@@ -62,6 +63,7 @@ public class Creature {
     public void setDefaulHealth(int defaulHealth) {
         this.defaulHealth = defaulHealth;
     }
+
 }
 
 

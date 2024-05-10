@@ -95,6 +95,12 @@ public class Game {
                 System.out.println("-----GAME OVER-----");
                 break;
             }
+            if (player.checkWin() == true) {
+                System.out.println("------------------CONGRATS------------------");
+                waiting();
+                System.out.println("------------------YOU WON THE GAME !------------------");
+                break;
+            }
         }
     }
 

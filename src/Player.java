@@ -82,6 +82,16 @@ public class Player {
         this.setMoney(characters.getMoney());
     }
 
+    public boolean checkWin() {
+        String food = this.getInventory().getFood();
+        String firewood = this.getInventory().getFood();
+        String fish = this.getInventory().getFish();
+        if (!(food.equals("Empty")) && !(firewood.equals("Empty")) && !(fish.equals("Empty"))) {
+            return true;
+        }
+        return false;
+    }
+
     public int getDamage() {
         return damage + this.inventory.getWeapons().getDamage();
     }
