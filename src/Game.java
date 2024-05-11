@@ -89,7 +89,7 @@ public class Game {
                         waiting();
                         System.out.println();
                         location = new SafeHouse(player);
-                    }else {
+                    } else {
                         location = new Forest(player);
                         System.out.println();
                     }
@@ -106,7 +106,7 @@ public class Game {
                         waiting();
                         System.out.println();
                         location = new SafeHouse(player);
-                    }else {
+                    } else {
                         location = new River(player);
                         System.out.println();
                     }
@@ -134,6 +134,7 @@ public class Game {
                 player.checkReward();
                 System.out.println("------------------CONGRATS------------------");
                 waiting();
+                System.out.println("You collected all the rewards !");
                 System.out.println("------------------YOU WON THE GAME !------------------");
                 break;
             }

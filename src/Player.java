@@ -91,7 +91,8 @@ public class Player {
         }
         return false;
     }
-    public void checkReward(){
+
+    public void checkReward() {
         System.out.println(this.getInventory().getFood());
         System.out.println(this.getInventory().getFirewood());
         System.out.println(this.getInventory().getFish());
@@ -102,7 +103,6 @@ public class Player {
         String food = this.getInventory().getFood();
         String firewood = this.getInventory().getFirewood();
         String fish = this.getInventory().getFish();
-
         if (location.equals("Cave")) {
             return food.equals("Food");
         } else if (location.equals("Forest")) {

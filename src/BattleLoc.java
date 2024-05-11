@@ -67,8 +67,7 @@ public abstract class BattleLoc extends Location {
                 System.out.print("For now");
                 waiting();
                 return true;
-            }
-            else
+            } else
                 return false;
         }
         if (this.getPlayer().getHealth() <= 0) {
@@ -83,7 +82,6 @@ public abstract class BattleLoc extends Location {
 
     public boolean combat(int number) {
         int round = 1;
-        int random = createNumber();
         for (int i = 1; i <= number; i++) {
             if (this.getCreature().getHealth() <= 0) {
                 round = 1; // every creature dies the round loop reset itself
@@ -91,6 +89,8 @@ public abstract class BattleLoc extends Location {
             // if there are more than 1 creature when we killed one
             // loop moves to the second (or third) stage and the creatures health regenerates
             this.getCreature().setHealth(this.getCreature().getDefaulHealth());
+
+            int random = createNumber();
 
             printPlayerStats();
             printEnemyStats(i);
@@ -281,10 +281,13 @@ public abstract class BattleLoc extends Location {
         switch (this.getName()) {
             case "Cave":
                 this.getPlayer().getInventory().setFood(this.getAward());
+                break;
             case "Forest":
                 this.getPlayer().getInventory().setFirewood(this.getAward());
+                break;
             case "River":
                 this.getPlayer().getInventory().setFish(this.getAward());
+                break;
         }
     }
 

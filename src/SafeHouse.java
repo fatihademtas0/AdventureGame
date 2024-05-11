@@ -17,14 +17,17 @@ public class SafeHouse extends NormalLoc {
         this.getPlayer().setHealth(this.getPlayer().getDefaultHealth());
     }
 
-    public void checkReward(){
-        System.out.println(this.getPlayer().getInventory().getFood());
-        System.out.println(this.getPlayer().getInventory().getFirewood());
-        System.out.println(this.getPlayer().getInventory().getFish());
+    public void checkReward() {
+        String food = this.getPlayer().getInventory().getFood();
+        String firewood = this.getPlayer().getInventory().getFirewood();
+        String fish = this.getPlayer().getInventory().getFish();
+        System.out.println("Cave's reward : " + food);
+        System.out.println("Forest's reward : " + firewood);
+        System.out.println("River's reward : " + fish);
 
     }
 
-    public void checkReward2(){
+    public void checkReward2() {
         System.out.println(this.getPlayer().getInventory().getFood());
         System.out.println(this.getPlayer().getInventory().getFirewood());
         System.out.println(this.getPlayer().getInventory().getFish());
