@@ -23,4 +23,11 @@ public class SafeHouse extends NormalLoc {
         System.out.println(this.getPlayer().getInventory().getFish());
 
     }
+
+    public void checkReward2(){
+        System.out.println(this.getPlayer().getInventory().getFood());
+        System.out.println(this.getPlayer().getInventory().getFirewood());
+        System.out.println(this.getPlayer().getInventory().getFish());
+
+    }
 }

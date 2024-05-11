@@ -54,8 +54,6 @@ public abstract class BattleLoc extends Location {
             waiting();
 
             return true;
-
-
         } else if (select == 2) {
             coinToss();
             System.out.println();
@@ -70,6 +68,8 @@ public abstract class BattleLoc extends Location {
                 waiting();
                 return true;
             }
+            else
+                return false;
         }
         if (this.getPlayer().getHealth() <= 0) {
             waitSec();
@@ -83,19 +83,37 @@ public abstract class BattleLoc extends Location {
 
     public boolean combat(int number) {
         int round = 1;
+        int random = createNumber();
         for (int i = 1; i <= number; i++) {
+            if (this.getCreature().getHealth() <= 0) {
+                round = 1; // every creature dies the round loop reset itself
+            }
             // if there are more than 1 creature when we killed one
             // loop moves to the second (or third) stage and the creatures health regenerates
             this.getCreature().setHealth(this.getCreature().getDefaulHealth());
 
             printPlayerStats();
             printEnemyStats(i);
+
+            System.out.println();
+            System.out.println("We toss a coin to decide who hits first !");
+            System.out.print("Coin is spinning");
+            waiting();
+            if (random == 1) {
+                System.out.println("-----------------------------");
+                System.out.println("You are attacking first ! ");
+                System.out.println("-----------------------------");
+                System.out.println();
+            } else {
+                System.out.println("-----------------------------");
+                System.out.println("Enemy is attacking first ! ");
+                System.out.println("-----------------------------");
+                System.out.println();
+            }
+
             System.out.print("START FİGHT");
             waiting();
             while (this.getPlayer().getHealth() > 0 && this.getCreature().getHealth() > 0) {// while the enemy or player is still alive
-                // we declare a variable for a shortcut to player's block
-                int playersBlock = this.getPlayer().getInventory().getArmour().getBlock();
-
                 System.out.println();
                 System.out.println("ROUND " + round);
                 System.out.println();
@@ -106,28 +124,32 @@ public abstract class BattleLoc extends Location {
 
                 if (slct == 1) {
                     System.out.println();
-                    System.out.println("-------------------");
-                    System.out.println("YOU HİT " + this.getPlayer().getDamage() + " DAMAGE !");
-                    System.out.println("-------------------");
-                    waitSec();
-                    System.out.println();
-                    this.getCreature().setHealth(this.getCreature().getHealth() - this.getPlayer().getDamage());
-                    afterHit(i);
-                    if (this.getCreature().getHealth() > 0) {
-                        System.out.println();
-                        System.out.println("-------------------");
-                        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE !");
-                        System.out.println("-------------------");
-                        waitSec();
-                        System.out.println();
-                        int blockedDamage = this.getCreature().getDamage() - playersBlock; // if enemy's damage is lower than our block we take that hit as 0
-                        if (blockedDamage <= 0) {
-                            blockedDamage = 0;
+                    // we are deciding who hits first
+                    // first rounds decided by a coin toss
+                    // and other rounds need to be in the same order as round 1
+                    if (random == 1 && round == 1) {
+                        playerHit(i);
+                        if (this.getCreature().getHealth() > 0) {
+                            enemyHit(i);
                         }
-                        this.getPlayer().setHealth(this.getPlayer().getHealth() - blockedDamage);
-                        afterHit(i);
+                    } else if (random == 2 && round == 1) {
+                        enemyHit(i);
+                        if (this.getPlayer().getHealth() > 0) {
+                            playerHit(i);
+                        }
+                    } else if (random == 1 && round != 1) {
+                        playerHit(i);
+                        if (this.getCreature().getHealth() > 0) {
+                            enemyHit(i);
+                        }
+                    } else if (random == 2 && round != 1) {
+                        enemyHit(i);
+                        if (this.getPlayer().getHealth() > 0) {
+                            playerHit(i);
+                        }
                     }
                 } else {
+                    // if player selected to run in combat  decreasing player's health 5 point
                     this.getPlayer().setHealth(this.getPlayer().getHealth() - 5);
                     return false;
                 }
@@ -147,6 +169,35 @@ public abstract class BattleLoc extends Location {
                 return false;
         }
         return true;
+    }
+
+    public void playerHit(int i) {
+        System.out.println();
+        System.out.println("-------------------");
+        System.out.println("YOU HİT " + this.getPlayer().getDamage() + " DAMAGE !");
+        System.out.println("-------------------");
+        waitSec();
+        System.out.println();
+        this.getCreature().setHealth(this.getCreature().getHealth() - this.getPlayer().getDamage());
+        afterHit(i);
+    }
+
+    public void enemyHit(int i) {
+        // we declare a variable for a shortcut to player's block
+        int playersBlock = this.getPlayer().getInventory().getArmour().getBlock();
+
+        System.out.println();
+        System.out.println("-------------------");
+        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE !");
+        System.out.println("-------------------");
+        waitSec();
+        System.out.println();
+        int blockedDamage = this.getCreature().getDamage() - playersBlock; // if enemy's damage is lower than our block we take that hit as 0
+        if (blockedDamage <= 0) {
+            blockedDamage = 0;
+        }
+        this.getPlayer().setHealth(this.getPlayer().getHealth() - blockedDamage);
+        afterHit(i);
     }
 
     public void coinToss() {
@@ -231,14 +282,19 @@ public abstract class BattleLoc extends Location {
             case "Cave":
                 this.getPlayer().getInventory().setFood(this.getAward());
             case "Forest":
-                this.getPlayer().getInventory().setFood(this.getAward());
+                this.getPlayer().getInventory().setFirewood(this.getAward());
             case "River":
-                this.getPlayer().getInventory().setFood(this.getAward());
+                this.getPlayer().getInventory().setFish(this.getAward());
         }
     }
 
     public int randomCreatureNumber() {
-        int number = (int) (Math.random() * (this.getMaxCreature())) + 1;
+        int number = (int) (Math.random() * (this.getMaxCreature())) + 1; // creates number between 1-3 (both included)
+        return number;
+    }
+
+    public int createNumber() {
+        int number = (int) (Math.random() * (2)) + 1; // creates number between 1-2 (both included)
         return number;
     }
 

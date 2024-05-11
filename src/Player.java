@@ -84,10 +84,32 @@ public class Player {
 
     public boolean checkWin() {
         String food = this.getInventory().getFood();
-        String firewood = this.getInventory().getFood();
+        String firewood = this.getInventory().getFirewood();
         String fish = this.getInventory().getFish();
-        if (!(food.equals("Empty")) && !(firewood.equals("Empty")) && !(fish.equals("Empty"))) {
+        if ((food.equals("Food")) && (firewood.equals("Firewood")) && (fish.equals("Fish"))) {
             return true;
+        }
+        return false;
+    }
+    public void checkReward(){
+        System.out.println(this.getInventory().getFood());
+        System.out.println(this.getInventory().getFirewood());
+        System.out.println(this.getInventory().getFish());
+
+    }
+
+    public boolean closeLocation(String location) {
+        String food = this.getInventory().getFood();
+        String firewood = this.getInventory().getFirewood();
+        String fish = this.getInventory().getFish();
+
+        if (location.equals("Cave")) {
+            return food.equals("Food");
+        } else if (location.equals("Forest")) {
+            return firewood.equals("Firewood");
+
+        } else if (location.equals("River")) {
+            return fish.equals("Fish");
         }
         return false;
     }

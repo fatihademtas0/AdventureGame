@@ -49,32 +49,67 @@ public class Game {
                 case 1:
                     System.out.print("Area loading");
                     waiting();
+                    System.out.println();
                     location = new SafeHouse(player);
                     System.out.println();
                     break;
                 case 2:
                     System.out.print("Area loading");
                     waiting();
+                    System.out.println();
                     location = new Shop(player);
                     System.out.println();
                     break;
                 case 3:
                     System.out.print("Area loading");
                     waiting();
-                    location = new Cave(player);
                     System.out.println();
+                    if (player.closeLocation("Cave")) {
+                        System.out.println("You've accomplished everything there is to achieve in Cave !");
+                        System.out.println("Hit the road Adventurer " + player.getName() + " !");
+                        System.out.println();
+                        System.out.print("You are sent to the safe house . Please wait");
+                        waiting();
+                        System.out.println();
+                        location = new SafeHouse(player);
+                    } else {
+                        location = new Cave(player);
+                        System.out.println();
+                    }
                     break;
                 case 4:
                     System.out.print("Area loading");
                     waiting();
-                    location = new Forest(player);
                     System.out.println();
+                    if (player.closeLocation("Forest")) {
+                        System.out.println("You've accomplished everything there is to achieve in Forest !");
+                        System.out.println("Hit the road Adventurer " + player.getName() + " !");
+                        System.out.println();
+                        System.out.print("You are sent to the safe house . Please wait");
+                        waiting();
+                        System.out.println();
+                        location = new SafeHouse(player);
+                    }else {
+                        location = new Forest(player);
+                        System.out.println();
+                    }
                     break;
                 case 5:
-                    System.out.print("Loading");
+                    System.out.print("Area loading");
                     waiting();
-                    location = new River(player);
                     System.out.println();
+                    if (player.closeLocation("River")) {
+                        System.out.println("You've accomplished everything there is to achieve in River !");
+                        System.out.println("Hit the road Adventurer " + player.getName() + " !");
+                        System.out.println();
+                        System.out.print("You are sent to the safe house . Please wait");
+                        waiting();
+                        System.out.println();
+                        location = new SafeHouse(player);
+                    }else {
+                        location = new River(player);
+                        System.out.println();
+                    }
                     break;
                 default:
                     System.out.println("----------------------------");
@@ -95,7 +130,8 @@ public class Game {
                 System.out.println("-----GAME OVER-----");
                 break;
             }
-            if (player.checkWin() == true) {
+            if (player.checkWin()) {
+                player.checkReward();
                 System.out.println("------------------CONGRATS------------------");
                 waiting();
                 System.out.println("------------------YOU WON THE GAME !------------------");

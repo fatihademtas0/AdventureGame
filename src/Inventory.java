@@ -8,9 +8,9 @@ public class Inventory {
     public Inventory() {
         this.weapons = new Weapons("Fist", 0, 0, 0);
         this.armour = new Armour("Shirt", 0, 0, 0);
-        this.fish = "Empty";
         this.food = "Empty";
         this.firewood = "Empty";
+        this.fish = "Empty";
     }
 
     public Weapons getWeapons() {
