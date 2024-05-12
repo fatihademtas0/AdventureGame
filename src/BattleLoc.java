@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 
 public abstract class BattleLoc extends Location {
     private Creature creature;
@@ -16,7 +17,14 @@ public abstract class BattleLoc extends Location {
         System.out.println("------------------------");
         System.out.println("You entered the " + this.getName() + " ! ");
         int randomNumber = this.randomCreatureNumber();
-        System.out.println("You have to get the " + this.getAward() + " !");
+        if (!(this.getCreature().getName().equals("Snake"))) {
+            System.out.println("You have to get the " + this.getAward() + " !");
+        }
+        if (this.getCreature().getName().equals("Snake")) { // if we are facing snakes there must be at least 3 of them
+            if (randomNumber == 1 || randomNumber == 2) {
+                randomNumber = 3;
+            }
+        }
         waitSec();
         System.out.println("CAUTİON ! " + this.getCreature().getName() + "s rule this filthy place !");
         System.out.print("Searching the area for any danger ");
@@ -61,6 +69,18 @@ public abstract class BattleLoc extends Location {
                 System.out.println();
                 System.out.println("---------------------------------");
                 System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+                if (this.getCreature().getName().equals("Snake")) {
+                    System.out.println("Your chance of getting a weapon : %15");
+                    System.out.println("Your chance of getting a armour : %15");
+                    System.out.println("Your chance of earning money    : %15");
+                    System.out.println("Your chance of getting nothing  : %15");
+                    System.out.print("Good luck");
+                    waiting();
+                    reward();
+                    System.out.println(this.getName() + " is safe !");
+                    System.out.print("For now");
+                    waiting();
+                }
                 System.out.println("You won the **" + this.getAward() + "** of the " + this.getName() + " ! ");
                 reward();
                 System.out.println(this.getName() + " is safe !");
@@ -86,9 +106,16 @@ public abstract class BattleLoc extends Location {
             if (this.getCreature().getHealth() <= 0) {
                 round = 1; // every creature dies the round loop reset itself
             }
+
+            // if the creature is snake we set his damage random between 1-5 (both included)
+            int randomSnakeDamage = Snake.createRandomDamageSnake();
+            if (this.getCreature().getName().equals("Snake")) {
+                this.getCreature().setDamage(randomSnakeDamage);
+            }
+
             // if there are more than 1 creature when we killed one
             // loop moves to the second (or third) stage and the creatures health regenerates
-            this.getCreature().setHealth(this.getCreature().getDefaulHealth());
+            this.getCreature().setHealth(this.getCreature().getDefaultHealth());
 
             int random = createNumber();
 
@@ -160,9 +187,12 @@ public abstract class BattleLoc extends Location {
                 System.out.println("-------------------------------");
                 System.out.println("You defeated the " + this.getCreature().getName() + " !");
                 System.out.println("Remaining " + this.getCreature().getName() + " : " + (number - i));
-                System.out.print("Current balance : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
-                System.out.println(" = " + this.getPlayer().getMoney());
+                // because snake has it's special loot
+                if (!(this.getCreature().getName().equals("Snake"))) {
+                    System.out.print("Current balance : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
+                    this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
+                    System.out.println(" = " + this.getPlayer().getMoney());
+                }
                 System.out.println("-------------------------------");
                 System.out.println();
             } else
@@ -271,7 +301,10 @@ public abstract class BattleLoc extends Location {
         System.out.println(i + ". " + this.getCreature().getName() + "'s Stats");
         System.out.println(this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
         System.out.println(this.getCreature().getName() + "'s Damage : " + this.getCreature().getDamage());
-        System.out.println(this.getCreature().getName() + "'s Loot  : " + this.getCreature().getLoot());
+        if (!(this.getCreature().getName().equals("Snake"))) {
+            System.out.println(this.getCreature().getName() + "'s Loot  : " + this.getCreature().getLoot());
+
+        }
         System.out.println("---------------------");
         waitSec();
         System.out.println();
@@ -288,6 +321,105 @@ public abstract class BattleLoc extends Location {
             case "River":
                 this.getPlayer().getInventory().setFish(this.getAward());
                 break;
+            case "Mine":
+                createRandomSnakeLoot(Snake.createRandomLootNumber());
+        }
+    }
+
+    public void createRandomSnakeLoot(int randomItem) {
+        if (randomItem < 150) {
+            System.out.println();
+            if (randomItem <= 75) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Pistol !");
+                System.out.println("-----------------------------");
+                takeItOrLeaveItWeapon(1, "Pistol");
+            } else if (randomItem > 75 && randomItem <= 125) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Sword !");
+                System.out.println("-----------------------------");
+
+                takeItOrLeaveItWeapon(2, "Sword");
+            } else if (randomItem > 125) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Rifle !");
+                System.out.println("-----------------------------");
+                takeItOrLeaveItWeapon(3, "Rifle");
+            }
+        } else if (randomItem > 150 && randomItem <= 300) {
+            System.out.println();
+            if (randomItem > 150 && randomItem <= 225) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Light Armour");
+                System.out.println("-----------------------------");
+                takeItOrLeaveItArmour(1, "Light");
+            } else if (randomItem > 200 && randomItem <= 255) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Medium Armour !");
+                System.out.println("-----------------------------");
+                takeItOrLeaveItArmour(2, "Medium");
+            } else if (randomItem > 255) {
+                System.out.println("-----------------------------");
+                System.out.println("You won a Heavy Armour !");
+                System.out.println("-----------------------------");
+                takeItOrLeaveItArmour(3, "Heavy");
+            }
+        } else if (randomItem > 300 && randomItem <= 550) {
+            System.out.println();
+            if (randomItem > 300 && randomItem <= 425) {
+                System.out.println("-----------------------------");
+                System.out.println("You won 1 Coin !");
+                System.out.println("-----------------------------");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 1);
+            } else if (randomItem > 425 && randomItem <= 500) {
+                System.out.println("-----------------------------");
+                System.out.println("You won 5 Coin !");
+                System.out.println("-----------------------------");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 5);
+            } else if (randomItem > 500) {
+                System.out.println("-----------------------------");
+                System.out.println("You won 10 Coin !");
+                System.out.println("-----------------------------");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 10);
+            }
+            System.out.println();
+        } else if (randomItem > 550 && randomItem <= 1000) {
+            System.out.println("---------------------------------------");
+            System.out.println("Unfortunately you did not win anything .");
+            System.out.println("Keep trying Adventurer ! ");
+            System.out.println("---------------------------------------");
+        }
+    }
+
+    public void takeItOrLeaveItArmour(int i, String name) {
+        Armour armour;
+        System.out.println("Do you want take it ? ");
+        System.out.print("YES --->  <1>  --  <0>  <--- NO ");
+        int take = input.nextInt();
+        if (take == 1) {
+            armour = Armour.getArmourObjById(i);
+            System.out.println();
+            System.out.println("----------------------------------------");
+            this.getPlayer().getInventory().setArmour(armour);
+            System.out.println("DONE ! Your new armour is ** " + name + " Armour ** !");
+            System.out.println("----------------------------------------");
+            System.out.println();
+        }
+    }
+
+    public void takeItOrLeaveItWeapon(int i, String name) {
+        Weapons weapon;
+        System.out.println("Do you want take it ? ");
+        System.out.print("YES --->  <1>  --  <0>  <--- NO ");
+        int take = input.nextInt();
+        if (take == 1) {
+            weapon = Weapons.getWeaponObjById(i);
+            System.out.println();
+            System.out.println("----------------------------------------");
+            this.getPlayer().getInventory().setWeapons(weapon);
+            System.out.println("DONE ! Your new weapon is ** " + name + " ** !");
+            System.out.println("----------------------------------------");
+            System.out.println();
         }
     }
 

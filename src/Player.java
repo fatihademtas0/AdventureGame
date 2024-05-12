@@ -170,11 +170,4 @@ public class Player {
         this.defaultHealth = defaultHealth;
     }
 
-    public Scanner getInput() {
-        return input;
-    }
-
-    public void setInput(Scanner input) {
-        this.input = input;
-    }
 }

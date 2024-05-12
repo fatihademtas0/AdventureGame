@@ -6,6 +6,7 @@ public class Game {
 
     public void start() {
         System.out.println("Welcome Adventurer !");
+        System.out.println("You have to gather 3 magical item from different areas to win the game.");
 
         System.out.print("Your Name : ");
         String name = input.nextLine();
@@ -36,6 +37,7 @@ public class Game {
             System.out.println("3 - \t Cave");
             System.out.println("4 - \t Forest");
             System.out.println("5 - \t River");
+            System.out.println("6 - \t Mine");
             System.out.println("0 - \t Exit Game");
             System.out.println("---------------------");
 
@@ -110,6 +112,13 @@ public class Game {
                         location = new River(player);
                         System.out.println();
                     }
+                    break;
+                case 6:
+                    System.out.print("Area loading");
+                    waiting();
+                    System.out.println();
+                    location = new Mine(player);
+                    System.out.println();
                     break;
                 default:
                     System.out.println("----------------------------");

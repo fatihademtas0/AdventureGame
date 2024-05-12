@@ -4,15 +4,14 @@ public class Creature {
     private int damage;
     private int health;
     private int loot;
-    private String reward;
-    private int defaulHealth;
+    private int defaultHealth;
 
     public Creature(int id, String name, int damage, int health, int loot) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.health = health;
-        this.defaulHealth = health;
+        this.defaultHealth = health;
         this.loot = loot;
     }
 
@@ -56,12 +55,12 @@ public class Creature {
         this.loot = loot;
     }
 
-    public int getDefaulHealth() {
-        return defaulHealth;
+    public int getDefaultHealth() {
+        return defaultHealth;
     }
 
-    public void setDefaulHealth(int defaulHealth) {
-        this.defaulHealth = defaulHealth;
+    public void setDefaultHealth(int defaultHealth) {
+        this.defaultHealth = defaultHealth;
     }
 
 }
