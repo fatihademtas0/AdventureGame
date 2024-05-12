@@ -70,6 +70,7 @@ public class Game {
                         System.out.println("You've accomplished everything there is to achieve in Cave !");
                         System.out.println("Hit the road Adventurer " + player.getName() + " !");
                         System.out.println();
+                        waitSec();
                         System.out.print("You are sent to the safe house . Please wait");
                         waiting();
                         System.out.println();
@@ -141,9 +142,11 @@ public class Game {
             }
             if (player.checkWin()) {
                 player.checkReward();
+                System.out.println();
                 System.out.println("------------------CONGRATS------------------");
-                waiting();
+                waitSec();
                 System.out.println("You collected all the rewards !");
+                System.out.println();
                 System.out.println("------------------YOU WON THE GAME !------------------");
                 break;
             }

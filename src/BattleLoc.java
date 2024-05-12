@@ -60,7 +60,7 @@ public abstract class BattleLoc extends Location {
             System.out.println(this.getName() + " is safe !");
             System.out.print("For now");
             waiting();
-
+            System.out.println();
             return true;
         } else if (select == 2) {
             coinToss();
@@ -83,6 +83,8 @@ public abstract class BattleLoc extends Location {
                 }
                 System.out.println("You won the **" + this.getAward() + "** of the " + this.getName() + " ! ");
                 reward();
+                System.out.println("---------------------------------");
+                System.out.println();
                 System.out.println(this.getName() + " is safe !");
                 System.out.print("For now");
                 waiting();
@@ -121,7 +123,7 @@ public abstract class BattleLoc extends Location {
 
             printPlayerStats();
             printEnemyStats(i);
-
+/*
             System.out.println();
             System.out.println("We toss a coin to decide who hits first !");
             System.out.print("Coin is spinning");
@@ -138,6 +140,8 @@ public abstract class BattleLoc extends Location {
                 System.out.println();
             }
 
+ */
+
             System.out.print("START FİGHT");
             waiting();
             while (this.getPlayer().getHealth() > 0 && this.getCreature().getHealth() > 0) {// while the enemy or player is still alive
@@ -148,6 +152,23 @@ public abstract class BattleLoc extends Location {
                 System.out.print("FİGHT ---> <1> --- <0> <--- RUN (-5 HEALTH) ");
                 int slct = input.nextInt();
                 waitSec();
+
+                System.out.println();
+                System.out.println("We toss a coin to decide who hits first !");
+                System.out.print("Coin is spinning");
+                waiting();
+                System.out.println();
+                if (random == 1) {
+                    System.out.println("-----------------------------");
+                    System.out.println("You are attacking first ! ");
+                    System.out.println("-----------------------------");
+                    System.out.println();
+                } else {
+                    System.out.println("-----------------------------");
+                    System.out.println("Enemy is attacking first ! ");
+                    System.out.println("-----------------------------");
+                    System.out.println();
+                }
 
                 if (slct == 1) {
                     System.out.println();
@@ -189,7 +210,7 @@ public abstract class BattleLoc extends Location {
                 System.out.println("Remaining " + this.getCreature().getName() + " : " + (number - i));
                 // because snake has it's special loot
                 if (!(this.getCreature().getName().equals("Snake"))) {
-                    System.out.print("Current balance : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
+                    System.out.print("Current balance  : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
                     this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
                     System.out.println(" = " + this.getPlayer().getMoney());
                 }
@@ -218,7 +239,7 @@ public abstract class BattleLoc extends Location {
 
         System.out.println();
         System.out.println("-------------------");
-        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE !");
+        System.out.println("ENEMY HİT " + playersBlock + " DAMAGE ! (Player's Block : )" + playersBlock);
         System.out.println("-------------------");
         waitSec();
         System.out.println();
@@ -251,7 +272,7 @@ public abstract class BattleLoc extends Location {
             System.out.println("--------------");
             System.out.println();
             waitSec();
-            System.out.println("You have succesfully escaped from the " + this.getName() + " !");
+            System.out.println("You have successfully escaped from the " + this.getName() + " !");
             System.out.println();
             waitSec();
         } else if (number == 2) {
@@ -302,7 +323,7 @@ public abstract class BattleLoc extends Location {
         System.out.println(this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
         System.out.println(this.getCreature().getName() + "'s Damage : " + this.getCreature().getDamage());
         if (!(this.getCreature().getName().equals("Snake"))) {
-            System.out.println(this.getCreature().getName() + "'s Loot  : " + this.getCreature().getLoot());
+            System.out.println(this.getCreature().getName() + "'s Loot : " + this.getCreature().getLoot());
 
         }
         System.out.println("---------------------");

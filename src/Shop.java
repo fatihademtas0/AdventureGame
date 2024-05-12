@@ -10,6 +10,7 @@ public class Shop extends NormalLoc {
         while (showMenu) {
             waitSec();
             System.out.println();
+            System.out.println(this.getPlayer().getName() + "'s money : " + this.getPlayer().getMoney());
             System.out.println("----------------");
             System.out.println("1 - Weapons ");
             System.out.println("2 - Armours ");
