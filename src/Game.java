@@ -6,7 +6,9 @@ public class Game {
 
     public void start() {
         System.out.println("Welcome Adventurer !");
-        System.out.println("You have to gather 3 magical item from different areas to win the game.");
+        System.out.println("There are 3 magical items in these abandoned lands.");
+        System.out.println("You have to gather them to win the game.");
+        waitSec();
 
         System.out.print("Your Name : ");
         String name = input.nextLine();

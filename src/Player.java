@@ -51,6 +51,7 @@ public class Player {
         switch (charSel) {
             case 1:
                 initPlayer(new Samurai());
+                System.out.println();
                 System.out.println("-------------------------");
                 System.out.println("You are a Samurai now !");
                 System.out.println("-------------------------");
@@ -58,6 +59,7 @@ public class Player {
                 break;
             case 2:
                 initPlayer(new Archer());
+                System.out.println();
                 System.out.println("-------------------------");
                 System.out.println("You are an Archer now !");
                 System.out.println("-------------------------");
@@ -65,6 +67,7 @@ public class Player {
                 break;
             case 3:
                 initPlayer(new Knight());
+                System.out.println();
                 System.out.println("-------------------------");
                 System.out.println("You are a Knight now !");
                 System.out.println("-------------------------");

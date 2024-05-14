@@ -18,7 +18,7 @@ public abstract class BattleLoc extends Location {
         System.out.println("You entered the " + this.getName() + " ! ");
         int randomNumber = this.randomCreatureNumber();
         if (!(this.getCreature().getName().equals("Snake"))) {
-            System.out.println("You have to get the " + this.getAward() + " !");
+            System.out.println("You have to get the **" + this.getAward() + "** !");
         }
         if (this.getCreature().getName().equals("Snake")) { // if we are facing snakes there must be at least 3 of them
             if (randomNumber == 1 || randomNumber == 2) {
@@ -153,11 +153,14 @@ public abstract class BattleLoc extends Location {
                 int slct = input.nextInt();
                 waitSec();
 
-                System.out.println();
-                System.out.println("We toss a coin to decide who hits first !");
-                System.out.print("Coin is spinning");
-                waiting();
-                System.out.println();
+                if (round == 1) {
+                    System.out.println();
+                    System.out.println("We toss a coin to decide who hits first !");
+                    System.out.print("Coin is spinning");
+                    waiting();
+                    System.out.println();
+                }
+
                 if (random == 1) {
                     System.out.println("-----------------------------");
                     System.out.println("You are attacking first ! ");
@@ -239,7 +242,7 @@ public abstract class BattleLoc extends Location {
 
         System.out.println();
         System.out.println("-------------------");
-        System.out.println("ENEMY HİT " + playersBlock + " DAMAGE ! (Player's Block : )" + playersBlock);
+        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE ! (Player's Block : " + playersBlock + " )");
         System.out.println("-------------------");
         waitSec();
         System.out.println();
@@ -320,10 +323,10 @@ public abstract class BattleLoc extends Location {
     public void printEnemyStats(int i) {
         System.out.println("---------------------");
         System.out.println(i + ". " + this.getCreature().getName() + "'s Stats");
-        System.out.println(this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
-        System.out.println(this.getCreature().getName() + "'s Damage : " + this.getCreature().getDamage());
+        System.out.println(this.getCreature().getName() + "'s Health\t : " + this.getCreature().getHealth());
+        System.out.println(this.getCreature().getName() + "'s Damage\t : " + this.getCreature().getDamage());
         if (!(this.getCreature().getName().equals("Snake"))) {
-            System.out.println(this.getCreature().getName() + "'s Loot : " + this.getCreature().getLoot());
+            System.out.println(this.getCreature().getName() + "'s Loot\t : " + this.getCreature().getLoot());
 
         }
         System.out.println("---------------------");

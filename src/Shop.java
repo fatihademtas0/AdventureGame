@@ -37,7 +37,7 @@ public class Shop extends NormalLoc {
                     buyWeapon();
                     break;
                 case 2:
-                    System.out.println("Loading armours");
+                    System.out.print("Loading armours");
                     waiting();
                     showArmours();
                     buyArmour();
