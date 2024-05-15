@@ -23,7 +23,7 @@ public class SafeHouse extends NormalLoc {
         String fish = this.getPlayer().getInventory().getFish();
         System.out.println();
         System.out.println("--------------------------");
-        System.out.println("Checking rewards");
+        System.out.print("Checking rewards");
         waiting();
         System.out.println("Cave's reward   : " + food);
         System.out.println("Forest's reward : " + firewood);

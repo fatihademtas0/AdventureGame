@@ -95,13 +95,6 @@ public class Player {
         return false;
     }
 
-    public void checkReward() {
-        System.out.println(this.getInventory().getFood());
-        System.out.println(this.getInventory().getFirewood());
-        System.out.println(this.getInventory().getFish());
-
-    }
-
     public boolean closeLocation(String location) {
         String food = this.getInventory().getFood();
         String firewood = this.getInventory().getFirewood();

@@ -33,12 +33,14 @@ public class Shop extends NormalLoc {
                 case 1:
                     System.out.print("Loading weapons");
                     waiting();
+                    System.out.println();
                     showWeapons();
                     buyWeapon();
                     break;
                 case 2:
                     System.out.print("Loading armours");
                     waiting();
+                    System.out.println();
                     showArmours();
                     buyArmour();
                     break;
@@ -62,7 +64,7 @@ public class Shop extends NormalLoc {
             System.out.println("| " + w.getId() + " - " + w.getName() +
                     " \t| Damage : " + w.getDamage() + " \t| Price : " + w.getPrice() + " |");
         }
-        System.out.println("| 4 - Exit\t\t|");
+        System.out.println("| 4 - Previous menu\t\t|");
         System.out.println("----------------------------------------------");
     }
 
@@ -109,7 +111,11 @@ public class Shop extends NormalLoc {
                     System.out.println("*******************************");
                 }
             }
+        } else {
+            System.out.print("Returning to previous menu");
+            waiting();
         }
+
 
     }
 
@@ -120,7 +126,7 @@ public class Shop extends NormalLoc {
             System.out.println("| " + a.getId() + " - " + a.getName() +
                     " \t| Block : " + a.getBlock() + " \t| Price : " + a.getPrice() + " |");
         }
-        System.out.println("| 4 - Exit\t\t|");
+        System.out.println("| 4 - Previous menu\t\t|");
         System.out.println("----------------------------------------------");
     }
 
@@ -166,6 +172,9 @@ public class Shop extends NormalLoc {
                     System.out.println("*******************************");
                 }
             }
+        } else {
+            System.out.print("Returning to previous menu");
+            waiting();
         }
 
     }

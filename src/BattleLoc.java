@@ -20,6 +20,10 @@ public abstract class BattleLoc extends Location {
         if (!(this.getCreature().getName().equals("Snake"))) {
             System.out.println("You have to get the **" + this.getAward() + "** !");
         }
+
+        if ((this.getCreature().getName().equals("Snake"))) {
+            System.out.println("You can gain weapon , armour or money by chance !");
+        }
         if (this.getCreature().getName().equals("Snake")) { // if we are facing snakes there must be at least 3 of them
             if (randomNumber == 1 || randomNumber == 2) {
                 randomNumber = 3;
@@ -55,42 +59,68 @@ public abstract class BattleLoc extends Location {
         if (select == 1 && combat(randomNumber)) {
             System.out.println("---------------------------------");
             System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+            if (this.getCreature().getName().equals("Snake")) {
+                System.out.println("Your chance of getting a weapon : %15");
+                System.out.println("Your chance of getting a armour : %15");
+                System.out.println("Your chance of earning money    : %15");
+                System.out.println("Your chance of getting nothing  : %15");
+                System.out.print("Good luck");
+                waiting();
+                reward();
+                System.out.println(this.getName() + " is safe !");
+                System.out.print("For now");
+                waiting();
+                System.out.println("---------------------------------");
+                System.out.println();
+                return true;
+            }
             System.out.println("You won the " + this.getAward() + " of the " + this.getName() + " ! ");
             reward();
             System.out.println(this.getName() + " is safe !");
             System.out.print("For now");
             waiting();
+            System.out.println("---------------------------------");
             System.out.println();
             return true;
         } else if (select == 2) {
-            coinToss();
-            System.out.println();
-            if (combat(randomNumber)) {
+            if (coinToss()) {
+                return true;
+            } else {
                 System.out.println();
-                System.out.println("---------------------------------");
-                System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
-                if (this.getCreature().getName().equals("Snake")) {
-                    System.out.println("Your chance of getting a weapon : %15");
-                    System.out.println("Your chance of getting a armour : %15");
-                    System.out.println("Your chance of earning money    : %15");
-                    System.out.println("Your chance of getting nothing  : %15");
-                    System.out.print("Good luck");
-                    waiting();
+                if (combat(randomNumber)) {
+                    System.out.println();
+                    System.out.println("---------------------------------");
+                    System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
+                    if (this.getCreature().getName().equals("Snake")) {
+                        System.out.println("Your chance of getting a weapon : %15");
+                        System.out.println("Your chance of getting a armour : %15");
+                        System.out.println("Your chance of earning money    : %15");
+                        System.out.println("Your chance of getting nothing  : %15");
+                        System.out.print("Good luck");
+                        waiting();
+                        reward();
+                        System.out.println(this.getName() + " is safe !");
+                        System.out.print("For now");
+                        waiting();
+                        System.out.println("---------------------------------");
+                        System.out.println();
+                        return true;
+                    }
+                    System.out.println("You won the reward of the " + this.getName() + " ! ");
+                    System.out.println("*** " + this.getAward() + " ***");
                     reward();
+                    System.out.println("---------------------------------");
+                    System.out.println();
                     System.out.println(this.getName() + " is safe !");
                     System.out.print("For now");
                     waiting();
-                }
-                System.out.println("You won the **" + this.getAward() + "** of the " + this.getName() + " ! ");
-                reward();
-                System.out.println("---------------------------------");
-                System.out.println();
-                System.out.println(this.getName() + " is safe !");
-                System.out.print("For now");
-                waiting();
-                return true;
-            } else
-                return false;
+                    return true;
+                } else if (this.getPlayer().getHealth() <= 0) {
+                    return false;
+                } else
+                    return true;
+            }
+
         }
         if (this.getPlayer().getHealth() <= 0) {
             waitSec();
@@ -123,24 +153,6 @@ public abstract class BattleLoc extends Location {
 
             printPlayerStats();
             printEnemyStats(i);
-/*
-            System.out.println();
-            System.out.println("We toss a coin to decide who hits first !");
-            System.out.print("Coin is spinning");
-            waiting();
-            if (random == 1) {
-                System.out.println("-----------------------------");
-                System.out.println("You are attacking first ! ");
-                System.out.println("-----------------------------");
-                System.out.println();
-            } else {
-                System.out.println("-----------------------------");
-                System.out.println("Enemy is attacking first ! ");
-                System.out.println("-----------------------------");
-                System.out.println();
-            }
-
- */
 
             System.out.print("START FİGHT");
             waiting();
@@ -153,7 +165,7 @@ public abstract class BattleLoc extends Location {
                 int slct = input.nextInt();
                 waitSec();
 
-                if (round == 1) {
+                if (round == 1 && slct == 1) {
                     System.out.println();
                     System.out.println("We toss a coin to decide who hits first !");
                     System.out.print("Coin is spinning");
@@ -161,16 +173,18 @@ public abstract class BattleLoc extends Location {
                     System.out.println();
                 }
 
-                if (random == 1) {
+                if (random == 1 && slct == 1 && round == 1) {
                     System.out.println("-----------------------------");
                     System.out.println("You are attacking first ! ");
                     System.out.println("-----------------------------");
                     System.out.println();
-                } else {
+                    waitSec();
+                } else if (random == 2 && slct == 1 && round == 1) {
                     System.out.println("-----------------------------");
                     System.out.println("Enemy is attacking first ! ");
                     System.out.println("-----------------------------");
                     System.out.println();
+                    waitSec();
                 }
 
                 if (slct == 1) {
@@ -202,25 +216,29 @@ public abstract class BattleLoc extends Location {
                 } else {
                     // if player selected to run in combat  decreasing player's health 5 point
                     this.getPlayer().setHealth(this.getPlayer().getHealth() - 5);
+                    System.out.println("You ran ! (-5 HEALTH)");
                     return false;
                 }
                 round++;
             }
             if (this.getPlayer().getHealth() > this.getCreature().getHealth()) {
+                waitSec();
                 System.out.println();
                 System.out.println("-------------------------------");
                 System.out.println("You defeated the " + this.getCreature().getName() + " !");
-                System.out.println("Remaining " + this.getCreature().getName() + " : " + (number - i));
+                System.out.println("Remaining " + this.getCreature().getName() + "\t: " + (number - i));
                 // because snake has it's special loot
                 if (!(this.getCreature().getName().equals("Snake"))) {
-                    System.out.print("Current balance  : " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
+                    System.out.print("Current balance\t: " + this.getPlayer().getMoney() + " + " + this.getCreature().getLoot());
                     this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getCreature().getLoot());
                     System.out.println(" = " + this.getPlayer().getMoney());
                 }
                 System.out.println("-------------------------------");
                 System.out.println();
-            } else
+                waitSec();
+            } else {
                 return false;
+            }
         }
         return true;
     }
@@ -242,7 +260,7 @@ public abstract class BattleLoc extends Location {
 
         System.out.println();
         System.out.println("-------------------");
-        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE ! (Player's Block : " + playersBlock + " )");
+        System.out.println("ENEMY HİT " + this.getCreature().getDamage() + " DAMAGE ! (Blocked Damage : " + playersBlock + " )");
         System.out.println("-------------------");
         waitSec();
         System.out.println();
@@ -254,7 +272,7 @@ public abstract class BattleLoc extends Location {
         afterHit(i);
     }
 
-    public void coinToss() {
+    public boolean coinToss() {
         System.out.println("***** Your escape chance is %50 ! *****");
         System.out.println("Your chances of escaping will be decided by a coin toss !");
         System.out.println("HEADS ---> RUN");
@@ -278,6 +296,7 @@ public abstract class BattleLoc extends Location {
             System.out.println("You have successfully escaped from the " + this.getName() + " !");
             System.out.println();
             waitSec();
+            return true;
         } else if (number == 2) {
             System.out.println();
             System.out.println("--------------");
@@ -288,7 +307,9 @@ public abstract class BattleLoc extends Location {
             System.out.print("You have to stay and fight");
             waiting();
             System.out.println();
+            return false;
         }
+        return true;
     }
 
     public void afterHit(int i) {
@@ -297,12 +318,12 @@ public abstract class BattleLoc extends Location {
         if (this.getPlayer().getHealth() <= 0) {
             this.getPlayer().setHealth(0);
         }
-        System.out.println(this.getPlayer().getName() + "'s Health : " + this.getPlayer().getHealth());
+        System.out.println(this.getPlayer().getName() + "'s Health\t: " + this.getPlayer().getHealth());
 
         if (this.getCreature().getHealth() <= 0) {
             this.getCreature().setHealth(0);
         }
-        System.out.println(i + ". " + this.getCreature().getName() + "'s Health : " + this.getCreature().getHealth());
+        System.out.println(i + ". " + this.getCreature().getName() + "'s Health\t: " + this.getCreature().getHealth());
 
         System.out.println("-------------------");
         waitSec();
@@ -323,10 +344,10 @@ public abstract class BattleLoc extends Location {
     public void printEnemyStats(int i) {
         System.out.println("---------------------");
         System.out.println(i + ". " + this.getCreature().getName() + "'s Stats");
-        System.out.println(this.getCreature().getName() + "'s Health\t : " + this.getCreature().getHealth());
-        System.out.println(this.getCreature().getName() + "'s Damage\t : " + this.getCreature().getDamage());
+        System.out.println(this.getCreature().getName() + "'s Health\t: " + this.getCreature().getHealth());
+        System.out.println(this.getCreature().getName() + "'s Damage\t: " + this.getCreature().getDamage());
         if (!(this.getCreature().getName().equals("Snake"))) {
-            System.out.println(this.getCreature().getName() + "'s Loot\t : " + this.getCreature().getLoot());
+            System.out.println(this.getCreature().getName() + "'s Loot\t: " + this.getCreature().getLoot());
 
         }
         System.out.println("---------------------");
@@ -351,23 +372,26 @@ public abstract class BattleLoc extends Location {
     }
 
     public void createRandomSnakeLoot(int randomItem) {
+
         if (randomItem < 150) {
             System.out.println();
             if (randomItem <= 75) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Pistol !");
                 System.out.println("-----------------------------");
+                System.out.println();
                 takeItOrLeaveItWeapon(1, "Pistol");
             } else if (randomItem > 75 && randomItem <= 125) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Sword !");
                 System.out.println("-----------------------------");
-
+                System.out.println();
                 takeItOrLeaveItWeapon(2, "Sword");
             } else if (randomItem > 125) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Rifle !");
                 System.out.println("-----------------------------");
+                System.out.println();
                 takeItOrLeaveItWeapon(3, "Rifle");
             }
         } else if (randomItem > 150 && randomItem <= 300) {
@@ -376,16 +400,19 @@ public abstract class BattleLoc extends Location {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Light Armour");
                 System.out.println("-----------------------------");
+                System.out.println();
                 takeItOrLeaveItArmour(1, "Light");
             } else if (randomItem > 200 && randomItem <= 255) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Medium Armour !");
                 System.out.println("-----------------------------");
+                System.out.println();
                 takeItOrLeaveItArmour(2, "Medium");
             } else if (randomItem > 255) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Heavy Armour !");
                 System.out.println("-----------------------------");
+                System.out.println();
                 takeItOrLeaveItArmour(3, "Heavy");
             }
         } else if (randomItem > 300 && randomItem <= 550) {
@@ -416,6 +443,13 @@ public abstract class BattleLoc extends Location {
     }
 
     public void takeItOrLeaveItArmour(int i, String name) {
+        String armourName = this.getPlayer().getInventory().getArmour().getName();
+        int armourBlock = this.getPlayer().getInventory().getArmour().getBlock();
+        System.out.println();
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Your old weapon : | Name :\t" + armourName + "\t|\t| Block :\t" + armourBlock + "\t|");
+        System.out.println("-----------------------------------------------------");
+        System.out.println();
         Armour armour;
         System.out.println("Do you want take it ? ");
         System.out.print("YES --->  <1>  --  <0>  <--- NO ");
@@ -432,6 +466,13 @@ public abstract class BattleLoc extends Location {
     }
 
     public void takeItOrLeaveItWeapon(int i, String name) {
+        String weaponName = this.getPlayer().getInventory().getWeapons().getName();
+        int weaponDamage = this.getPlayer().getInventory().getWeapons().getDamage();
+        System.out.println();
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Your old weapon : | Name :\t" + weaponName + "\t|\t| Damage :\t" + weaponDamage + "\t|");
+        System.out.println("-----------------------------------------------------");
+        System.out.println();
         Weapons weapon;
         System.out.println("Do you want take it ? ");
         System.out.print("YES --->  <1>  --  <0>  <--- NO ");

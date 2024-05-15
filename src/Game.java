@@ -34,12 +34,12 @@ public class Game {
             waitSec();
             System.out.println("---------------------");
             System.out.println("--LOCATİONS--");
-            System.out.println("1 - \t Safe House");
-            System.out.println("2 - \t Shop");
-            System.out.println("3 - \t Cave");
-            System.out.println("4 - \t Forest");
-            System.out.println("5 - \t River");
-            System.out.println("6 - \t Mine");
+            System.out.println("1 - \t Safe House\t(Recover your health)");
+            System.out.println("2 - \t Shop\t(Buy armours and weapons)");
+            System.out.println("3 - \t Cave\t(** FOOD **)");
+            System.out.println("4 - \t Forest\t(** FİREWOOD **)");
+            System.out.println("5 - \t River\t(** FİSH **)");
+            System.out.println("6 - \t Mine\t(Money and Item drop chance)");
             System.out.println("0 - \t Exit Game");
             System.out.println("---------------------");
 
@@ -143,13 +143,12 @@ public class Game {
                 break;
             }
             if (player.checkWin()) {
-                player.checkReward();
                 System.out.println();
                 System.out.println("------------------CONGRATS------------------");
                 waitSec();
-                System.out.println("You collected all the rewards !");
+                System.out.println("-------You collected all the rewards!-------");
                 System.out.println();
-                System.out.println("------------------YOU WON THE GAME !------------------");
+                System.out.println("-------------YOU WON THE GAME !-------------");
                 break;
             }
         }
