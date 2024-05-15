@@ -60,10 +60,10 @@ public abstract class BattleLoc extends Location {
             System.out.println("---------------------------------");
             System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
             if (this.getCreature().getName().equals("Snake")) {
-                System.out.println("Your chance of getting a weapon : %15");
-                System.out.println("Your chance of getting a armour : %15");
-                System.out.println("Your chance of earning money    : %15");
-                System.out.println("Your chance of getting nothing  : %15");
+                System.out.println("Your chance of getting a weapon : %25");
+                System.out.println("Your chance of getting a armour : %25");
+                System.out.println("Your chance of earning money    : %25");
+                System.out.println("Your chance of getting nothing  : %25");
                 System.out.print("Good luck");
                 waiting();
                 reward();
@@ -92,10 +92,10 @@ public abstract class BattleLoc extends Location {
                     System.out.println("---------------------------------");
                     System.out.println("You defeated all the " + this.getCreature().getName() + "s !");
                     if (this.getCreature().getName().equals("Snake")) {
-                        System.out.println("Your chance of getting a weapon : %15");
-                        System.out.println("Your chance of getting a armour : %15");
-                        System.out.println("Your chance of earning money    : %15");
-                        System.out.println("Your chance of getting nothing  : %15");
+                        System.out.println("Your chance of getting a weapon : %25");
+                        System.out.println("Your chance of getting a armour : %25");
+                        System.out.println("Your chance of earning money    : %25");
+                        System.out.println("Your chance of getting nothing  : %25");
                         System.out.print("Good luck");
                         waiting();
                         reward();
@@ -373,68 +373,68 @@ public abstract class BattleLoc extends Location {
 
     public void createRandomSnakeLoot(int randomItem) {
 
-        if (randomItem < 150) {
+        if (randomItem < 250) {
             System.out.println();
-            if (randomItem <= 75) {
+            if (randomItem <= 90) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Pistol !");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItWeapon(1, "Pistol");
-            } else if (randomItem > 75 && randomItem <= 125) {
+            } else if (randomItem > 90 && randomItem <= 180) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Sword !");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItWeapon(2, "Sword");
-            } else if (randomItem > 125) {
+            } else if (randomItem > 180) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Rifle !");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItWeapon(3, "Rifle");
             }
-        } else if (randomItem > 150 && randomItem <= 300) {
+        } else if (randomItem > 250 && randomItem <= 500) {
             System.out.println();
-            if (randomItem > 150 && randomItem <= 225) {
+            if (randomItem > 250 && randomItem <= 340) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Light Armour");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItArmour(1, "Light");
-            } else if (randomItem > 200 && randomItem <= 255) {
+            } else if (randomItem > 340 && randomItem <= 420) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Medium Armour !");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItArmour(2, "Medium");
-            } else if (randomItem > 255) {
+            } else if (randomItem > 420) {
                 System.out.println("-----------------------------");
                 System.out.println("You won a Heavy Armour !");
                 System.out.println("-----------------------------");
                 System.out.println();
                 takeItOrLeaveItArmour(3, "Heavy");
             }
-        } else if (randomItem > 300 && randomItem <= 550) {
+        } else if (randomItem > 500 && randomItem <= 750) {
             System.out.println();
-            if (randomItem > 300 && randomItem <= 425) {
+            if (randomItem > 500 && randomItem <= 570) {
                 System.out.println("-----------------------------");
-                System.out.println("You won 1 Coin !");
+                System.out.println("You won 8 Coin !");
                 System.out.println("-----------------------------");
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + 1);
-            } else if (randomItem > 425 && randomItem <= 500) {
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 8);
+            } else if (randomItem > 570 && randomItem <= 650) {
                 System.out.println("-----------------------------");
-                System.out.println("You won 5 Coin !");
+                System.out.println("You won 14 Coin !");
                 System.out.println("-----------------------------");
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + 5);
-            } else if (randomItem > 500) {
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 14);
+            } else if (randomItem > 650) {
                 System.out.println("-----------------------------");
-                System.out.println("You won 10 Coin !");
+                System.out.println("You won 18 Coin !");
                 System.out.println("-----------------------------");
-                this.getPlayer().setMoney(this.getPlayer().getMoney() + 10);
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 18);
             }
             System.out.println();
-        } else if (randomItem > 550 && randomItem <= 1000) {
+        } else if (randomItem > 750 && randomItem <= 1000) {
             System.out.println("---------------------------------------");
             System.out.println("Unfortunately you did not win anything .");
             System.out.println("Keep trying Adventurer ! ");
